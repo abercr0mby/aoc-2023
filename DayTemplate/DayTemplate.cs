@@ -6,9 +6,9 @@ using System.Linq;
 namespace aoc_2023
 {
 
-    class DayOne
+    class DayTemplate
     {
-        public DayOne()
+        public DayTemplate()
         {
             Test(24000, 1);
             Test(45000, 3);
@@ -41,7 +41,7 @@ namespace aoc_2023
             try
             {
                 //Pass the file path and file Name to the StreamReader constructor
-                StreamReader sr = new StreamReader("./DayOne/" + fileName);
+                StreamReader sr = new StreamReader("./DayTemplate/" + fileName);
 
                 var elfCalories = 0;
 
