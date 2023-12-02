@@ -8,74 +8,133 @@ namespace aoc_2023
 
     class DayOne
     {
+        List<string> numbers = new List<string>()
+      {
+        "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
+      };
+
         public DayOne()
         {
-            Test(24000, 1);
-            Test(45000, 3);
+            Test1(142);
+            Test2(281);
         }
 
-        public void Test(int target, int noOfPositions)
+        public void Test1(int target)
         {
-            var testResultOne = GetTopCalories("test-input-1.txt", noOfPositions);
+            var testResultOne = GetCalibrationValue("test-input-1.txt");
             if (testResultOne != target)
             {
                 throw new Exception("Test Part one not equal to " + target.ToString() + " :" + testResultOne.ToString());
             }
         }
 
+        public void Test2(int target)
+        {
+            var testResultOne = GetCalibrationValue("test-input-2.txt");
+            if (testResultOne != target)
+            {
+                throw new Exception("Test Part two not equal to " + target.ToString() + " :" + testResultOne.ToString());
+            }
+        }
+
         public int PartOne()
         {
-            return GetTopCalories("input-1.txt", 1);
+            return GetCalibrationValue("input-1.txt"); ;
         }
 
         public int PartTwo()
         {
-            return GetTopCalories("input-1.txt", 3);
+            return 0;
         }
 
-        public int GetTopCalories(string fileName, int noOfPositions)
+        public int GetCalibrationValue(string fileName)
         {
             String line;
-            var AllElfCalories = new List<int>();
+            var AllCalibrationValues = new List<int>();
 
             try
             {
                 //Pass the file path and file Name to the StreamReader constructor
                 StreamReader sr = new StreamReader("./DayOne/" + fileName);
 
-                var elfCalories = 0;
+                char firstNumber = ' ';
+                char lastNumber = ' ';
+                var numberString = "";
+                var lineNo = 0;
 
                 //Continue to read until you reach end of file
                 while (!sr.EndOfStream)
                 {
+                    lineNo++;
+
                     line = sr.ReadLine();
+                    foreach (var c in line)
+                    {
+                        if (Char.IsDigit(c))
+                        {
+                            if (firstNumber == ' ')
+                                firstNumber = c;
+                            else
+                                lastNumber = c;
 
-                    if (line.Equals(""))
-                    {
-                        AllElfCalories.Add(elfCalories);
-                        elfCalories = 0;
+                            numberString = "";
+                        }
+                        else
+                        {
+                            numberString = numberString + c.ToString();
+                            while (true)
+                            {
+                                if (numbers.Any(n => n.StartsWith(numberString)))
+                                {
+                                    break;
+                                }
+                                else
+                                    numberString = numberString.Substring(1);
+                            }
+
+
+                            try
+                            {
+                                var numberMatch = numbers.Select((n, i) => new { n, i }).Where(n => n.n.Equals(numberString)).First();
+                                if (firstNumber == ' ')
+                                    firstNumber = (char)(numberMatch.i + 49);
+                                else
+                                    lastNumber = (char)(numberMatch.i + 49);
+                                numberString = c.ToString();
+                            }
+                            catch (Exception e)
+                            { }
+
+                        }
+
                     }
-                    else
-                    {
-                        elfCalories += Int32.Parse(line);
-                    }
+                    if (lastNumber == ' ')
+                        lastNumber = firstNumber;
+
+                    Console.WriteLine("lineNo: " + lineNo + " " + firstNumber.ToString() + " " + lastNumber.ToString());
+                    AllCalibrationValues.Add(Int32.Parse(firstNumber.ToString() + lastNumber.ToString()));
+
+                    firstNumber = ' ';
+                    lastNumber = ' ';
+                    numberString = "";
+
                 }
-
-                AllElfCalories.Add(elfCalories);
-
                 //close the file
                 sr.Close();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception: " + e.Message);
+                Console.WriteLine("Exception: " + e.Message + " " + e.Source + " " + e.StackTrace);
             }
             finally
             {
                 Console.WriteLine("Executing finally block.");
             }
 
-            return AllElfCalories.OrderByDescending(x => x).Take(noOfPositions).Sum();
+
+
+            Console.WriteLine(AllCalibrationValues.Count);
+            return AllCalibrationValues.Sum();
 
         }
 
