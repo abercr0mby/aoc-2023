@@ -6,17 +6,17 @@ using System.Linq;
 namespace aoc_2023
 {
 
-    class DayTemplate
+    class DayThree
     {
-        public DayTemplate()
+        public DayThree()
         {
-            Test(24000, 1);
-            Test(45000, 3);
+            Test(0);
+            Test(0);
         }
 
         public void Test(int target, int noOfPositions)
         {
-            var testResultOne = GetTopCalories("test-input-1.txt", noOfPositions);
+            var testResultOne = 0;
             if (testResultOne != target)
             {
                 throw new Exception("Test Part one not equal to " + target.ToString() + " :" + testResultOne.ToString());
@@ -25,12 +25,12 @@ namespace aoc_2023
 
         public int PartOne()
         {
-            return GetTopCalories("input-1.txt", 1);
+            return 0;
         }
 
         public int PartTwo()
         {
-            return GetTopCalories("input-1.txt", 3);
+            return 0;
         }
 
         public int GetTopCalories(string fileName, int noOfPositions)
