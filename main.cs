@@ -10,9 +10,9 @@ namespace aoc_2023
             {
                 var watch = System.Diagnostics.Stopwatch.StartNew();
 
-                var dayOne = new DayOne();
-                Console.WriteLine("Part One Result: " + dayOne.PartOne());
-                //Console.WriteLine("Part Two Result: " + dayNine.PartTwo());
+                var dayTwo = new DayTwo();
+                Console.WriteLine("Part One Result: " + dayTwo.PartOne());
+                Console.WriteLine("Part Two Result: " + dayTwo.PartTwo());
 
                 watch.Stop();
                 Console.WriteLine("Time:" + watch.ElapsedMilliseconds);
