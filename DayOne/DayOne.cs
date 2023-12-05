@@ -102,7 +102,7 @@ namespace aoc_2023
                                     lastNumber = (char)(numberMatch.i + 49);
                                 numberString = c.ToString();
                             }
-                            catch (Exception e)
+                            catch (Exception)
                             { }
 
                         }

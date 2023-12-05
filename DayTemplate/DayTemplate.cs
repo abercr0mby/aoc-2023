@@ -10,13 +10,13 @@ namespace aoc_2023
     {
         public DayTemplate()
         {
-            Test(24000, 1);
-            Test(45000, 3);
+            Test(0);
+            Test(0);
         }
 
-        public void Test(int target, int noOfPositions)
+        public void Test(int target)
         {
-            var testResultOne = GetTopCalories("test-input-1.txt", noOfPositions);
+            var testResultOne = GetTopCalories("test-input-1.txt");
             if (testResultOne != target)
             {
                 throw new Exception("Test Part one not equal to " + target.ToString() + " :" + testResultOne.ToString());
@@ -25,58 +25,29 @@ namespace aoc_2023
 
         public int PartOne()
         {
-            return GetTopCalories("input-1.txt", 1);
+            return 0;
         }
 
         public int PartTwo()
         {
-            return GetTopCalories("input-1.txt", 3);
+            return 0;
         }
 
-        public int GetTopCalories(string fileName, int noOfPositions)
+        public int GetTopCalories(string fileName)
         {
-            String line;
-            var AllElfCalories = new List<int>();
-
+            var lines = Utils.FileToStringList("./DayTemplate/" + fileName);
             try
             {
-                //Pass the file path and file Name to the StreamReader constructor
-                StreamReader sr = new StreamReader("./DayTemplate/" + fileName);
-
-                var elfCalories = 0;
-
-                //Continue to read until you reach end of file
-                while (!sr.EndOfStream)
-                {
-                    line = sr.ReadLine();
-
-                    if (line.Equals(""))
-                    {
-                        AllElfCalories.Add(elfCalories);
-                        elfCalories = 0;
-                    }
-                    else
-                    {
-                        elfCalories += Int32.Parse(line);
-                    }
-                }
-
-                AllElfCalories.Add(elfCalories);
-
-                //close the file
-                sr.Close();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception: " + e.Message);
+                Console.WriteLine("Exception: " + e.Message + " : " + e.StackTrace);
             }
             finally
             {
                 Console.WriteLine("Executing finally block.");
             }
-
-            return AllElfCalories.OrderByDescending(x => x).Take(noOfPositions).Sum();
-
+            return 0;
         }
 
 
